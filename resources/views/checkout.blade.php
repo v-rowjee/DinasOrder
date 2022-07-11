@@ -8,35 +8,27 @@
                     <div class="card-header">
                         <h4 class="d-flex justify-content-between align-items-center my-2">
                             <span class="text-capitalize">Your cart</span>
-                            <span class="badge bg-secondary badge-pill">3</span>
+                            <span class="badge bg-secondary badge-pill">{{ count(session('cart')) }}</span>
                         </h4>
                     </div>
                     <div class="card-body">
                         <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">Product name</h6>
-                                    <small class="text-muted">Brief description</small>
-                                </div>
-                                <span class="text-muted">$12</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">Second product</h6>
-                                    <small class="text-muted">Brief description</small>
-                                </div>
-                                <span class="text-muted">$8</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">Third item</h6>
-                                    <small class="text-muted">Brief description</small>
-                                </div>
-                                <span class="text-muted">$5</span>
-                            </li>
+                            @php $total=0 @endphp
+                            @if(session('cart'))
+                            @foreach(session('cart') as $id => $details)
+                                @php $total += $details['price'] * $details['quantity'] @endphp
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div class="flex-grow-1">
+                                        <h6 class="my-0">{{ $details['title'] }}</h6>
+                                        <span class="text-muted">x{{ $details['quantity'] }}</span>
+                                    </div>
+                                    <span class="text-muted flex-shrink-0">Rs {{ $details['price'] * $details['quantity'] }}</span>
+                                </li>
+                            @endforeach
+                            @endif
                             <li class="list-group-item d-flex justify-content-between pt-4 pb-3 fw-bolder">
                                 <h4>Total (MRU)</h4>
-                                <h4>Rs20</h4>
+                                <h4>Rs {{ $total }}</h4>
                             </li>
                         </ul>
                         <button class="btn btn-primary w-100" type="submit">Place Your Order</button>

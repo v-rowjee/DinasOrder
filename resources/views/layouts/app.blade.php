@@ -193,6 +193,24 @@
             });
         });
 
+        $(".increment-cart").click(function (e) {
+            e.preventDefault();
+            const qty = parseInt($(this).siblings("input").val()) +1;
+
+            $.ajax({
+                url: '{{ route('update.cart') }}',
+                method: "patch",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: $(this).parent("div").attr("data-id"),
+                    quantity: qty
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+
         $(".remove-from-cart").click(function (e) {
             e.preventDefault();
 

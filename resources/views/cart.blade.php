@@ -21,7 +21,7 @@
                                     <div class="col-md-3 col-lg-3 col-xl-3">
                                         <h6 class="text-black mb-0">{{ $details['title'] }}</h6>
                                     </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex" data-id="{{ $id }}">
                                         <button class="btn btn-link px-2 me-1"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                             <i class="fas fa-minus"></i>
@@ -30,13 +30,12 @@
                                         <input min="0" max="99" name="quantity" value="{{ $details['quantity'] }}" type="number"
                                                class="form-control form-control-sm quantity update-cart"/>
 
-                                        <button class="btn btn-link px-2 ms-1 increment-cart"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        <button class="btn btn-link px-2 ms-1 increment-cart">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h6 class="mb-0">{{ $details['price'] }}</h6>
+                                        <h6 class="mb-0">Rs {{ $details['price'] * $details['quantity'] }}</h6>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end me-2">
                                         <button data-id="{{ $id }}" class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash"></i></button>
@@ -54,8 +53,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 position-fixed" style="right: 2rem">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card sticky-md-top" style="top: 5rem">
                     <div class="card-header">
                         <h4 class="my-2">
                             <span class="text-capitalize">Summary</span>
@@ -64,12 +63,16 @@
                     <div class="card-body p-4">
                         <h5 class="d-flex justify-content-between align-items-center my-2">
                             <span>Number of Items</span>
-                            <span class="fw-bold">5</span>
+                            <span>{{ count(session('cart')) }}</span>
                         </h5>
                         <hr class="my-4">
                         <h5 class="d-flex justify-content-between align-items-center my-2">
                             <span class="text-capitalize">Total(MRU)</span>
-                            <span class="fw-bold">Rs 500</span>
+                            @php $total=0 @endphp
+                            @foreach((array) session('cart') as $id => $details)
+                                @php $total += $details['price'] * $details['quantity'] @endphp
+                            @endforeach
+                            <span class="fw-bold">Rs {{ $total }}</span>
                         </h5>
                     </div>
                     <div class="card-footer">
