@@ -56,3 +56,7 @@ input::-webkit-inner-spin-button {
     bottom: 4rem;
     background: linear-gradient(transparent, white 60%);
 }
+
+.breadcrumb-item a{
+    text-decoration: none;
+}

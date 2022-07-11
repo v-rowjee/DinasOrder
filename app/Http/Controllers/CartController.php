@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Menu;
+use App\Models\Order;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
-class CardController extends Controller
+class CartController extends Controller
 {
     /**
      * Write code on Method
      *
      * @return Application|Factory|View
      */
-    public function cart()
+    public function index()
     {
         return view('cart');
     }
@@ -36,6 +39,7 @@ class CardController extends Controller
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
+                "mid" => $menu->id,
                 "title" => $menu->title,
                 "desc" => $menu->desc,
                 "price" => $menu->price,
@@ -94,5 +98,31 @@ class CardController extends Controller
             }
             session()->flash('success', 'Product removed successfully');
         }
+    }
+
+    public function successOrder(Request $request)
+    {
+        $total = 0;
+        foreach (session('cart') as $item){
+            $total += $item['price'] * $item['quantity'];
+        }
+        $order = Order::create([
+            'user_id' => auth()->user()->getAuthIdentifier(),
+            'num_items' => count(session('cart')),
+            'total' => $total
+        ]);
+        foreach (session('cart') as $item){
+            Cart::create([
+                'order_id' => $order->id,
+                'menu_id' => $item['mid'],
+                'quantity' => $item['quantity'],
+                'subtotal' => $item['price'] * $item['quantity'],
+            ]);
+        }
+
+        $request->session()->forget('cart');
+
+        return view('thank-you');
+
     }
 }

@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container">
+        <div class="row mb-3">
+            <nav>
+                <ol class="breadcrumb text-secondary">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                    <li class="breadcrumb-item"><a href="{{ route('checkout') }}">Checkout</a></li>
+                </ol>
+            </nav>
+        </div>
         <div class="row g-4">
             <div class="col-md-8">
                 <div class="card">
@@ -22,8 +31,7 @@
                                         <h6 class="text-black mb-0">{{ $details['title'] }}</h6>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex" data-id="{{ $id }}">
-                                        <button class="btn btn-link px-2 me-1"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                        <button class="btn btn-link px-2 me-1 decrement-cart">
                                             <i class="fas fa-minus"></i>
                                         </button>
 
@@ -46,9 +54,9 @@
                         @endif
                     </div>
                     <div class="card-footer">
+                        <span><i class="fa fa-arrow-left"></i></span>
                         <a href="{{ route('home') }}" class="link-dark">
-                            <span><i class="fa fa-arrow-left"></i></span>
-                            <span>Back to Menu</span>
+                            Back to Menu
                         </a>
                     </div>
                 </div>

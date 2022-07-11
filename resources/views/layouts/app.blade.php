@@ -137,16 +137,14 @@
                                     </span>
                                     <span>
                                         <div class="d-flex" data-id="{{ $id }}">
-                                            <button class="btn btn-link px-2 me-1"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            <button class="btn btn-link px-2 me-1 decrement-cart">
                                                 <i class="fas fa-minus"></i>
                                             </button>
 
                                             <input min="0" max="99" name="quantity" value="{{ $details['quantity'] }}" type="number"
                                                    class="form-control form-control-sm quantity update-cart"/>
 
-                                            <button class="btn btn-link px-2 ms-1 increment-cart"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                            <button class="btn btn-link px-2 ms-1 increment-cart">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
@@ -210,6 +208,26 @@
                 }
             });
         });
+
+        $(".decrement-cart").click(function (e) {
+            e.preventDefault();
+            const qty = parseInt($(this).siblings("input").val()) -1;
+
+            $.ajax({
+                url: '{{ route('update.cart') }}',
+                method: "patch",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: $(this).parent("div").attr("data-id"),
+                    quantity: qty
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        });
+
+
 
         $(".remove-from-cart").click(function (e) {
             e.preventDefault();

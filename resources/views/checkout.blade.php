@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container">
+        <div class="row mb-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('cart') }}">Cart</a></li>
+                    <li class="breadcrumb-item active">Checkout</li>
+                </ol>
+            </nav>
+        </div>
         <div class="row">
             <div class="col-md-4 order-md-2 mb-4">
                 <div class="card">
@@ -31,7 +40,7 @@
                                 <h4>Rs {{ $total }}</h4>
                             </li>
                         </ul>
-                        <button class="btn btn-primary w-100" type="submit">Place Your Order</button>
+                        <a href="{{ route('order.success') }}" class="btn btn-primary w-100" type="submit">Place Your Order</a>
                     </div>
                 </div>
             </div>
@@ -43,9 +52,7 @@
                     <div class="card-body">
                         <form class="needs-validation" novalidate="">
                             <div class="row">
-                                @php
-                                    $names = explode(" ", auth()->user()->name);
-                                @endphp
+                                @php $names = explode(" ", auth()->user()->name)@endphp
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName">First name</label>
                                     <input type="text" class="form-control" id="firstName" placeholder=""
