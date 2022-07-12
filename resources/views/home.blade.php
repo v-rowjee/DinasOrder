@@ -16,7 +16,7 @@
                                     <div class="card-body p-3">
                                         <h5 class="card-title text-capitalize">{{$menu->title}}</h5>
                                         <h6 class="card-text text-secondary h-2rem overflow-hidden">{{$menu->desc}}</h6>
-                                        <a href=" {{ route('menus.show', $menu->id) }}" class="opacity-0 stretched-link"></a>
+                                        <a href=" {{ route('menu.show', $menu->id) }}" class="opacity-0 stretched-link"></a>
                                     </div>
                                 </div>
                             </div>

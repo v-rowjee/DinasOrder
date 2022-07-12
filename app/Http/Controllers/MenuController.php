@@ -12,13 +12,26 @@ use Illuminate\Http\Response;
 class MenuController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //
+        $menus = Menu::all();
+        $categories = Menu::select('category')->distinct()->get();
+
+        return view('menu.index',compact('menus','categories'));
     }
 
     /**
@@ -28,7 +41,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return view('menu.create');
     }
 
     /**
@@ -39,7 +52,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'desc' => 'required',
+        ]);
+
+        Menu::create($request->all());
+
+        return redirect()->route('menu.index')
+            ->with('success','Product created successfully.');
     }
 
     /**
@@ -50,7 +71,7 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        return view('menu', compact('menu'));
+        return view('menu.show', compact('menu'));
     }
 
     /**

@@ -26,7 +26,8 @@ Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 
 Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
 
-Route::get('/menus/{menu}',[MenuController::class, 'show'])->name('menus.show');
+Route::resource('menu', MenuController::class);
+
 
 
 Route::get('cart', [CartController::class, 'index'])->name('cart');

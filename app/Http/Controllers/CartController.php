@@ -73,21 +73,6 @@ class CartController extends Controller
      *
      * @return response()
      */
-    public function increment(Request $request)
-    {
-        if($request->id && $request->quantity){
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
-            session()->put('cart', $cart);
-            session()->flash('success', 'Cart updated successfully');
-        }
-    }
-
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
     public function remove(Request $request)
     {
         if($request->id) {
