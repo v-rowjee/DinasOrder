@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -20,19 +21,15 @@ use App\Http\Controllers\MenuController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
-
-Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::resource('menu', MenuController::class);
 
 
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::patch('update', [CartController::class, 'update'])->name('cart.update');
+Route::delete('destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 
-Route::get('cart', [CartController::class, 'index'])->name('cart');
-Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
-Route::patch('update-cart', [CartController::class, 'update'])->name('update.cart');
-Route::patch('increment-cart', [CartController::class, 'increment'])->name('increment.cart');
-Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
-Route::get('/thank-you', [CartController::class, 'successOrder'])->name('order.success');
+Route::get('checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('thank-you', [OrderController::class, 'success'])->name('order.success');

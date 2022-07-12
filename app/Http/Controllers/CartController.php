@@ -11,6 +11,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class CartController extends Controller
 {
@@ -21,15 +23,18 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart');
+        return view('order.cart');
     }
 
     /**
      * Write code on Method
      *
+     * @param $id
      * @return RedirectResponse()
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function addToCart($id)
+    public function add($id)
     {
         $menu = Menu::findOrFail($id);
 
@@ -50,13 +55,13 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        return redirect()->back()->with('success', 'Added to cart successfully!');
     }
 
     /**
      * Write code on Method
      *
-     * @return response()
+     * @return void()
      */
     public function update(Request $request)
     {
@@ -71,9 +76,9 @@ class CartController extends Controller
     /**
      * Write code on Method
      *
-     * @return response()
+     * @return void()
      */
-    public function remove(Request $request)
+    public function destroy(Request $request)
     {
         if($request->id) {
             $cart = session()->get('cart');
@@ -81,7 +86,7 @@ class CartController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
-            session()->flash('success', 'Product removed successfully');
+            session()->flash('success', 'Cart removed successfully');
         }
     }
 
@@ -107,7 +112,7 @@ class CartController extends Controller
 
         $request->session()->forget('cart');
 
-        return view('thank-you');
+        return view('order.thank-you');
 
     }
 }

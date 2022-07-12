@@ -53,7 +53,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">{{ __('All') }}</a>
+                            <a class="nav-link" href="{{ route('menu.index') }}">{{ __('All') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/#starter">{{ __('Starter') }}</a>
@@ -163,7 +163,7 @@
                     @php $total += $details['price'] * $details['quantity'] @endphp
                 @endforeach
                 <div class="btn btn-outline-primary me-3 flex-shrink-0">Total Rs {{ $total }}</div>
-                <a href="{{ route('cart') }}" class="btn btn-primary flex-grow-1">View Cart</a>
+                <a href="{{ route('cart.index') }}" class="btn btn-primary flex-grow-1">View Cart</a>
             </div>
         </div>
 
@@ -178,7 +178,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: '{{ route('update.cart') }}',
+                url: '{{ route('cart.update') }}',
                 method: "patch",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -193,10 +193,10 @@
 
         $(".increment-cart").click(function (e) {
             e.preventDefault();
-            const qty = parseInt($(this).siblings("input").val()) +1;
+            const qty = parseInt($(this).siblings("input").val()) + 1;
 
             $.ajax({
-                url: '{{ route('update.cart') }}',
+                url: '{{ route('cart.update') }}',
                 method: "patch",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -214,7 +214,7 @@
             const qty = parseInt($(this).siblings("input").val()) -1;
 
             $.ajax({
-                url: '{{ route('update.cart') }}',
+                url: '{{ route('cart.update') }}',
                 method: "patch",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -233,7 +233,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: '{{ route('remove.from.cart') }}',
+                url: '{{ route('cart.destroy') }}',
                 method: "DELETE",
                 data: {
                     _token: '{{ csrf_token() }}',

@@ -5,9 +5,9 @@
         <div class="row mb-3">
             <nav>
                 <ol class="breadcrumb text-secondary">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('menu.index') }}">Menu</a></li>
                     <li class="breadcrumb-item active">Cart</li>
-                    <li class="breadcrumb-item"><a href="{{ route('checkout') }}">Checkout</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('order.checkout') }}">Checkout</a></li>
                 </ol>
             </nav>
         </div>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="card-footer">
                         <span><i class="fa fa-arrow-left"></i></span>
-                        <a href="{{ route('home') }}" class="link-dark">
+                        <a href="{{ route('menu.index') }}" class="link-dark">
                             Back to Menu
                         </a>
                     </div>
@@ -84,7 +84,7 @@
                         </h5>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ route('checkout') }}" class="btn btn-primary w-100">Continue To Checkout</a>
+                        <a href="{{ route('order.checkout') }}" class="btn btn-primary w-100">Continue To Checkout</a>
                     </div>
                 </div>
             </div>

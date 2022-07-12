@@ -6,6 +6,7 @@ use App\Models\Menu;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -48,25 +49,27 @@ class MenuController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required',
             'desc' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+            'path' => 'required'
         ]);
 
         Menu::create($request->all());
 
-        return redirect()->route('menu.index')
-            ->with('success','Product created successfully.');
+        return redirect()->route('menu.index')->with('success','Product created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Menu  $menu
      * @return Application|Factory|View
      */
     public function show(Menu $menu)

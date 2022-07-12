@@ -16,7 +16,7 @@
                                 <p class="card-text"><small class="text-muted">Rs {{ $menu->price }}</small></p>
                             </div>
                             <div class="p-3">
-                                <a href="{{ route('add.to.cart', $menu->id) }}" class="btn btn-primary">Add to cart</a>
+                                <a href="{{ route('cart.add', $menu->id) }}" class="btn btn-primary">Add to cart</a>
                             </div>
                         </div>
                     </div>

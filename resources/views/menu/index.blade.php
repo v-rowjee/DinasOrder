@@ -12,7 +12,7 @@
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="card">
                                         <img src="{{ asset($menu->path) }}" class="card-img-top square" alt="{{$menu->title}}">
-                                        <a href="{{ route('add.to.cart', $menu->id) }}" class="add-to-cart btn btn-sm btn-light"><i class="fa-solid fa-cart-plus"></i></a>
+                                        <a href="{{ route('cart.add', $menu->id) }}" class="add-to-cart btn btn-sm btn-light"><i class="fa-solid fa-cart-plus"></i></a>
                                         <div class="card-body p-3">
                                             <h5 class="card-title text-capitalize">{{$menu->title}}</h5>
                                             <h6 class="card-text text-secondary h-2rem overflow-hidden">{{$menu->desc}}</h6>

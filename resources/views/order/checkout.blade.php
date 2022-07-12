@@ -5,8 +5,8 @@
         <div class="row mb-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('cart') }}">Cart</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('menu.index') }}">Menu</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('cart.index') }}">Cart</a></li>
                     <li class="breadcrumb-item active">Checkout</li>
                 </ol>
             </nav>
