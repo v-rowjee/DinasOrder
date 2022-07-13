@@ -39,7 +39,7 @@
                     <img src="{{ URL::asset('images/logo.png') }}" alt="logo" height="35px">
                 </a>
                 <div class="d-flex">
-                    <a href="" class="nav-link text-reset cart-icon-left" data-bs-toggle="offcanvas" data-bs-target="#cart">
+                    <a href="" class="nav-link text-reset cart-icon-left me-3" data-bs-toggle="offcanvas" data-bs-target="#cart">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-danger position-absolute">{{ count((array) session('cart')) }}</span>
                     </a>
@@ -204,7 +204,7 @@
                     quantity: qty
                 },
                 success: function (response) {
-                    window.location.reload();
+                    $(this).siblings("input").val(qty)
                 }
             });
         });

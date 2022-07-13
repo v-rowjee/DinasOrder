@@ -17,6 +17,14 @@
                             </div>
                             <div class="p-3">
                                 <a href="{{ route('cart.add', $menu->id) }}" class="btn btn-primary">Add to cart</a>
+                                @if(auth()->user()->is_admin)
+                                    <a href="{{ route('menu.edit', $menu->id) }}" class="btn btn-secondary ms-3">Edit</a>
+                                    <form action="{{ route('menu.destroy',$menu->id) }}" method="DELETE" class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

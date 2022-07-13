@@ -19,7 +19,7 @@ class MenuController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('admin')->except(['index','show']);
     }
 
     /**
@@ -38,7 +38,7 @@ class MenuController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -57,11 +57,19 @@ class MenuController extends Controller
             'title' => 'required',
             'desc' => 'required',
             'price' => 'required',
-            'category' => 'required',
-            'path' => 'required'
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        Menu::create($request->all());
+        $input = $request->all();
+
+        if ($image = $request->file('images')) {
+            $destinationPath = 'images/';
+            $menuImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $menuImage);
+            $input['path'] = "$menuImage";
+        }
+
+        Menu::create($input);
 
         return redirect()->route('menu.index')->with('success','Product created successfully.');
     }
@@ -80,34 +88,57 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  Menu  $menu
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        return view('menu.edit',compact('menu'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
-     * @return Response
+     * @param  Menu $menu
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'desc' => 'required',
+            'price' => 'required',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $input = $request->all();
+
+        if ($image = $request->file('images')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['path'] = "$profileImage";
+        }else{
+            unset($input['path']);
+        }
+
+        $menu->update($input);
+
+        return redirect()->route('menu.index')
+            ->with('success','Menu updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param  Menu  $menu
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
-        //
+        $menu->delete();
+
+        return redirect()->route('menu.index')->with('success','Menu deleted successfully');
     }
 }
