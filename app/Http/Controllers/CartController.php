@@ -90,29 +90,4 @@ class CartController extends Controller
         }
     }
 
-    public function successOrder(Request $request)
-    {
-        $total = 0;
-        foreach (session('cart') as $item){
-            $total += $item['price'] * $item['quantity'];
-        }
-        $order = Order::create([
-            'user_id' => auth()->user()->getAuthIdentifier(),
-            'num_items' => count(session('cart')),
-            'total' => $total
-        ]);
-        foreach (session('cart') as $item){
-            Cart::create([
-                'order_id' => $order->id,
-                'menu_id' => $item['mid'],
-                'quantity' => $item['quantity'],
-                'subtotal' => $item['price'] * $item['quantity'],
-            ]);
-        }
-
-        $request->session()->forget('cart');
-
-        return view('order.thank-you');
-
-    }
 }

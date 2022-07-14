@@ -31,5 +31,6 @@ Route::get('add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::patch('update', [CartController::class, 'update'])->name('cart.update');
 Route::delete('destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 
+Route::get('order', [OrderController::class, 'index'])->name('order.index');
 Route::get('checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 Route::get('thank-you', [OrderController::class, 'success'])->name('order.success');

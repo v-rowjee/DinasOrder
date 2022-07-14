@@ -53,22 +53,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('menu.index') }}">{{ __('All') }}</a>
+                            <a class="nav-link {{ request()->is('/') ? 'active' : ''}}" href="{{ route('home.index') }}">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#starter">{{ __('Starter') }}</a>
+                            <a class="nav-link {{ request()->is('menu') ? 'active' : ''}}" href="{{ route('menu.index') }}">{{ __('Menu') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#pasta">{{ __('Pasta') }}</a>
+                            <a class="nav-link {{ request()->is('order') ? 'active' : ''}}" href="{{ route('order.index') }}">{{ __('Order') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/#pizza">{{ __('Pizza') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#dessert">{{ __('Dessert') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#drinks">{{ __('Drinks') }}</a>
+                            <a class="nav-link {{ request()->is('cart') ? 'active' : ''}} @if(empty (Session::get('cart'))) disabled @endif" href="{{ route('cart.index') }}">{{ __('Cart') }}</a>
                         </li>
                     </ul>
 
@@ -94,6 +88,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                    @if( Auth::user()->is_admin)
+                                        <a href="{{ route('menu.create') }}"  class="dropdown-item">
+                                            Create Menu
+                                        </a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -104,6 +105,7 @@
                                         @csrf
                                     </form>
                                 </div>
+
                             </li>
                         @endguest
                         <li class="nav-item">
@@ -117,55 +119,7 @@
             </div>
         </nav>
 
-        {{--      Offcanvas Cart     --}}
-        <div class="offcanvas offcanvas-end" style="width:100%; max-width: 500px" tabindex="-1" id="cart">
-            <div class="offcanvas-header">
-                <h4 class="m-0">My Cart</h4>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="list-group d-flex align-middle">
-                    @if(session('cart'))
-                        @foreach(session('cart') as $id => $details)
-                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                                    <span>
-                                        <img src="{{ asset($details['path']) }}" class="cart-img" alt="">
-                                    </span>
-                                            <span>
-                                        <p class="m-0">{{ $details['title'] }}</p>
-                                        <p class="text-muted m-0">Rs {{ $details['price'] * $details['quantity'] }}</p>
-                                    </span>
-                                    <span>
-                                        <div class="d-flex" data-id="{{ $id }}">
-                                            <button class="btn btn-link px-2 me-1 decrement-cart">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
-                                            <input min="0" max="99" name="quantity" value="{{ $details['quantity'] }}" type="number"
-                                                   class="form-control form-control-sm quantity update-cart"/>
-
-                                            <button class="btn btn-link px-2 ms-1 increment-cart">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </span>
-                                    <span>
-                                        <button data-id="{{ $id }}" class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash"></i></button>
-                                    </span>
-                                </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
-            <div class="offcanvas-footer m-3 d-flex justify-content-between">
-                @php $total = 0 @endphp
-                @foreach((array) session('cart') as $id => $details)
-                    @php $total += $details['price'] * $details['quantity'] @endphp
-                @endforeach
-                <div class="btn btn-outline-primary me-3 flex-shrink-0">Total Rs {{ $total }}</div>
-                <a href="{{ route('cart.index') }}" class="btn btn-primary flex-grow-1">View Cart</a>
-            </div>
-        </div>
+        @include('layouts.offcanvas')
 
         <main class="py-4">
             @yield('content')
@@ -204,7 +158,7 @@
                     quantity: qty
                 },
                 success: function (response) {
-                    $(this).siblings("input").val(qty)
+                    window.location.reload();
                 }
             });
         });

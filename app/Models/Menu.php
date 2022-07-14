@@ -16,4 +16,9 @@ class Menu extends Model
         'price',
         'path'
     ];
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class,'id');
+    }
 }

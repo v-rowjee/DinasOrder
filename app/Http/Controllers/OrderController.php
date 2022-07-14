@@ -4,11 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function success(Request $request){
+    public function index()
+    {
+        if (Auth::user()->is_admin){
+            $users = User::all();
+        }
+        else{
+            $users = User::all()->where('id',Auth::user()->id);
+        }
+
+        return view('order.index',compact('users'));
+    }
+
+
+    public function success(Request $request)
+    {
         $total = 0;
         foreach (session('cart') as $item){
             $total += $item['price'] * $item['quantity'];
@@ -33,7 +49,8 @@ class OrderController extends Controller
     }
 
 
-    public function checkout(){
+    public function checkout()
+    {
         return view('order.checkout');
     }
 }
