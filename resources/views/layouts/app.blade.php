@@ -107,9 +107,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ route('menu.create') }}">Create Menu</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('user.index') }}"></a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Users</a></li>
                                 </ul>
                             </li>
                         @endif

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -24,6 +25,7 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::resource('menu', MenuController::class);
+Route::resource('user', UserController::class)->middleware(['admin']);
 
 
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');

@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row g-4">
             @foreach($users as $user)
                 @foreach($user->orders as $order)
-                    <div class="offset-md-2 col-md-8 mb-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <div class="float-start pt-1">Order {{ $order->id }}</div>
-                                <div class="float-end text-muted pt-1">{{ $order->created_at->format('d/m/Y') }}</div>
+                                <div class="float-start pt-1">Order Number {{ $order->id }}</div>
                                 @if(auth()->user()->is_admin)
-                                    <button class="float-end me-5 btn btn-sm btn-danger">Delete</button>
+                                    <button class="float-end ms-3 btn btn-sm btn-danger">Delete</button>
                                 @endif
+                                <div class="float-end text-muted pt-1">{{ $order->created_at->format('d M Y') }}</div>
                             </div>
                             <div class="card-body">
                                 @foreach($order->carts as $cart)
