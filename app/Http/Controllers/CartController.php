@@ -16,6 +16,17 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class CartController extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('cart')->except(['add']);
+    }
+
     /**
      * Write code on Method
      *

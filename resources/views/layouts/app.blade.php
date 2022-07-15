@@ -49,9 +49,9 @@
                     </button>
                 </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mx-auto">
+                <div class="collapse navbar-collapse ms-4" id="navbarSupportedContent">
+                    <!-- Middle Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('/') ? 'active' : ''}}" href="{{ route('home.index') }}">{{ __('Home') }}</a>
                         </li>
@@ -88,19 +88,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-                                    @if( Auth::user()->is_admin)
-                                        <a href="{{ route('menu.create') }}"  class="dropdown-item">
-                                            Create Menu
-                                        </a>
-                                    @endif
-
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -108,6 +100,19 @@
 
                             </li>
                         @endguest
+                        @if( Auth::check() && Auth::user()->is_admin)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('menu.create') }}">Create Menu</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.index') }}"></a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="" class="nav-link text-reset cart-icon-right" data-bs-toggle="offcanvas" data-bs-target="#cart">
                                 <i class="fa fa-shopping-cart"></i>

@@ -94,7 +94,7 @@
                                 <label for="path" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="path" type="file" class="form-control @error('path') is-invalid @enderror" name="path" value="{{ $menu->path }}" required>
+                                    <input id="path" type="file" class="form-control @error('path') is-invalid @enderror" name="path" value="{{ $menu->path }}">
 
                                     @error('path')
                                     <span class="invalid-feedback" role="alert">
