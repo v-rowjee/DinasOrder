@@ -19,7 +19,7 @@
                         <h4>Edit Menu</h4>
                     </div>
                     <div class="card-body">
-                        <form action="PUT" action="{{ route('menu.update',$menu->id) }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('menu.update',$menu->id) }}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
 

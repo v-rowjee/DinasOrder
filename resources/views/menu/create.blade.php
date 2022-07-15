@@ -19,7 +19,7 @@
                         <h4>Create New Menu</h4>
                     </div>
                     <div class="card-body">
-                        <form action="POST" action="{{ route('menu.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('menu.store') }}" enctype="multipart/form-data">
                             @method('POST')
                             @csrf
 

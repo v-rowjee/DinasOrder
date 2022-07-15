@@ -60,3 +60,7 @@ input::-webkit-inner-spin-button {
 .breadcrumb-item a{
     text-decoration: none;
 }
+
+.table > :not(caption) > * > * {
+    padding: 2rem 0.5rem;
+}
