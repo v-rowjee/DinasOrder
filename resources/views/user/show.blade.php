@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="offset-md-2 col-md-8">
-                <div class="card">
+                <a href="{{ route('user.index') }}" class="link text-secondary"><i class="fa fa-arrow-left"></i>Back</a>
+                <div class="card mt-3">
                     <div class="card-header d-flex">
                         <b class="me-auto">User ID {{ $user->id }}</b>
                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-primary me-2">Edit</a>
@@ -22,7 +23,7 @@
                             </tr>
                             <tr>
                                 <td><b>Email:</b> {{ $user->email }}</td>
-                                <td><b>Email Verified At:</b> {{ $user->email_verified_at->format('d M Y @H:i') }}</td>
+                                <td><b>Email Verified At:</b> {{ $user->email_verified_at ? $user->email_verified_at->format('d M Y @H:i') : '-' }}</td>
                             </tr>
                             <tr>
                                 <td><b>Phone:</b> {{ $user->phone }}</td>

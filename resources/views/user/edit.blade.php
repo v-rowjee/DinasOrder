@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="offset-md-2 col-md-8">
-                <div class="card">
+                <a href="{{ route('user.index') }}" class="link text-secondary"><i class="fa fa-arrow-left"></i>Back</a>
+                <div class="card mt-3">
                     <div class="card-header">Edit User ID {{ $user->id }}</div>
                     <div class="card-body">
                         <div class="row mb-3">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-end">
-                            <a href="{{ route('user.show', $user->id) }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('user.index') }}" class="btn btn-secondary">Cancel</a>
                             <form action="{{ route('user.update', $user->id) }}" method="post" class="d-inline-block">
                                 @method('PUT')
                                 @csrf

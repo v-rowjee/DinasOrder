@@ -53,10 +53,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
+            'name'=>'required',
+            'email'=>'required|email|unique:users',
+            'phone'=>'required',
+            'address'=>'required',
+            'password'=>'required|confirmed|min:8',
+            'confirm_password'=>'required|min:8',
         ]);
 
-        User::create($request->all());
+        User::create([
+            'name'=> $request->input('name'),
+            'email'=> $request->input('email'),
+            'phone'=> $request->input('phone'),
+            'address'=> $request->input('address'),
+            'password'=> $request->input('password'),
+            'is_admin'=> $request->input('is_admin')
+        ]);
 
         return redirect()->route('user.index');
     }

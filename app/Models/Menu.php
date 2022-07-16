@@ -14,6 +14,7 @@ class Menu extends Model
         'title',
         'desc',
         'price',
+        'category',
         'path'
     ];
 

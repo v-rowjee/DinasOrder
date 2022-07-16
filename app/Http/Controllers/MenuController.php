@@ -30,7 +30,15 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $categories = Menu::select('category')->distinct()->get();
+
+        // TO ORDER MENU BY SPECIFIC CATEGORY
+        $queryOrder = "CASE WHEN category = 'starter' THEN 1";
+        $queryOrder .= " WHEN category = 'pasta' THEN 2";
+        $queryOrder .= " WHEN category = 'pizza' THEN 3";
+        $queryOrder .= " WHEN category = 'drink' THEN 4";
+        $queryOrder .= " ELSE 5 END";
+
+        $categories = Menu::select('category')->distinct()->orderByRaw($queryOrder)->get();
 
         return view('menu.index',compact('menus','categories'));
     }
@@ -62,11 +70,12 @@ class MenuController extends Controller
 
         $input = $request->all();
 
-        if ($image = $request->file('images')) {
-            $destinationPath = 'images/';
-            $menuImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $menuImage);
-            $input['path'] = "$menuImage";
+        if($request->hasFile('path')) {
+            $file = $request->file('path') ;
+            $fileName = date('YmdHis'). "-" . $file->getClientOriginalName() ;
+            $destinationPath = public_path().'/images/menu';
+            $file->move($destinationPath,$fileName);
+            $input['path'] = "images/menu/$fileName";
         }
 
         Menu::create($input);
@@ -109,18 +118,17 @@ class MenuController extends Controller
             'title' => 'required',
             'desc' => 'required',
             'price' => 'required',
-            'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $input = $request->all();
 
-        if ($image = $request->file('images')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['path'] = "$profileImage";
-        }else{
-            unset($input['path']);
+        if($request->hasFile('path')) {
+            $file = $request->file('path') ;
+            $fileName = date('YmdHis'). "-" . $file->getClientOriginalName() ;
+            $destinationPath = public_path().'/images/menu';
+            $file->move($destinationPath,$fileName);
+            $input['path'] = "images/menu/$fileName";
         }
 
         $menu->update($input);
