@@ -18,9 +18,9 @@ class IsCartEmpty
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('cart'))
+        if(! session()->has ('cart') || empty (session()->get ('cart')))
         {
-            abort(403);
+            return redirect()->back();
         }
 
         return $next($request);

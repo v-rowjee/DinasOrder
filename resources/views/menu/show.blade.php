@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center align-items-center w-100">
-            <div class="col-md-8">
-                <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <a href="{{ route('menu.index') }}" class="link text-secondary"><i class="fa fa-arrow-left"></i>Back</a>
+                <div class="card mt-3">
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="{{ asset($menu->path) }}" class="img-fluid square rounded-start" alt="{{ $menu->title }}">

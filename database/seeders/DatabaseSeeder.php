@@ -31,28 +31,28 @@ class DatabaseSeeder extends Seeder
                 'desc' => 'Very delicious pasta with cheese',
                 'price' => 350,
                 'category' => 'pasta',
-                'path' => 'images/macaroni.jpg',
+                'path' => 'images/default.jpg',
             ],
             [
                 'title' => 'Four Cheese',
                 'desc' => 'Very delicious pizza with cheese',
                 'price' => 400,
                 'category' => 'pizza',
-                'path' => 'images/pizza.jpg',
+                'path' => 'images/default.jpg',
             ],
             [
                 'title' => 'Lasagna',
                 'desc' => 'Very delicious lasagna with white sauce and cheese',
                 'price' => 380,
                 'category' => 'pasta',
-                'path' => 'images/lasagna.jpg',
+                'path' => 'images/default.jpg',
             ],
             [
                 'title' => 'Spaghetti',
                 'desc' => 'Very delicious spaghetti like mine apollo',
                 'price' => 300,
                 'category' => 'pasta',
-                'path' => 'images/spaghetti.jpg',
+                'path' => 'images/default.jpg',
             ],
         ];
     }
