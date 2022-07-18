@@ -62,7 +62,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:menu',
+            'title' => 'required|unique:menus',
             'desc' => 'required',
             'price' => 'required',
             'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -115,7 +115,7 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:menus',
             'desc' => 'required',
             'price' => 'required',
             'path' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -145,6 +145,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        unlink($menu->path);
+
         $menu->delete();
 
         return redirect()->route('menu.index')->with('success','Menu deleted successfully');
