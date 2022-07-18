@@ -62,7 +62,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:menu',
             'desc' => 'required',
             'price' => 'required',
             'path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
