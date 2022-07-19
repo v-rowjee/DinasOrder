@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
 {
@@ -13,30 +11,19 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
     /**
      * Show the application dashboard.
      *
-     * @return Renderable
+     * @return RedirectResponse
      */
     public function index()
     {
-        $menus = Menu::all();
-
-        // TO ORDER MENU BY SPECIFIC CATEGORY
-        $queryOrder = "CASE WHEN category = 'starter' THEN 1";
-        $queryOrder .= " WHEN category = 'pasta' THEN 2";
-        $queryOrder .= " WHEN category = 'pizza' THEN 3";
-        $queryOrder .= " WHEN category = 'drink' THEN 4";
-        $queryOrder .= " ELSE 5 END";
-
-        $categories = Menu::select('category')->distinct()->orderByRaw($queryOrder)->get();
-
-        return view('menu.index',compact('menus','categories'));
+        return redirect()->route('menu.index');
     }
 
 }
