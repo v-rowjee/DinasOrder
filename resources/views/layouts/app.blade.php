@@ -98,8 +98,6 @@
             });
         });
 
-
-
         $(".remove-from-cart").click(function (e) {
             e.preventDefault();
 
